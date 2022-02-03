@@ -1,0 +1,19 @@
+version: '3.9'
+services:
+  frontproxy:
+    image: jwilder/nginx-proxy:latest
+    restart: unless-stopped
+    ports:
+      - "80:80"
+    environment:
+      DEFAULT_HOST: whoami.local
+    volumes:
+      - /var/run/docker.sock:/tmp/docker.sock:ro
+
+  whoami:
+    image: jwilder/whoami
+    restart: unless-stopped
+    environment:
+      - VIRTUAL_HOST=whoami.local
+    
+
